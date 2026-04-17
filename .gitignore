@@ -1,0 +1,6 @@
+__marimo__/
+.venv
+.git
+.python-version
+uv.lock
+*.csv
