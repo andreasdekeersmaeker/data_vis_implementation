@@ -33,9 +33,8 @@ def _(env, mo, soils, species):
 
 
 @app.cell
-def _(env):
-    env
-
+def _(species):
+    species
     return
 
 
@@ -110,7 +109,6 @@ def _(clusters, env, pd):
 
     plt.imshow(comparison_norm, cmap='hot', interpolation='nearest')
     plt.show()
-
     return (plt,)
 
 
