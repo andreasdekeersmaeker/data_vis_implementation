@@ -586,8 +586,7 @@ def _(
         if len(sel_plots) < 2:
             return mo.callout(
                 mo.md(
-                    "**Click 2 or more dots on the clock to compare their environments.**\n\n"
-                    "Or type comma-separated plot IDs directly into the text field above."
+                    "**Select 2 or more dots to compare their environments.**\n\n"
                 ),
                 kind="info",
             )
