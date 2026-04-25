@@ -38,11 +38,11 @@ def _(mo):
 def _(np, pd):
     # ── Load & clean data ──────────────────────────────────────────────────────
 
-    soil_raw = pd.read_csv("oumalik_soil_data.csv")
-    env_raw  = pd.read_csv("oumalik_environmental_data.csv")
+    soil_raw = pd.read_csv("data/oumalik_soil_data.csv")
+    env_raw  = pd.read_csv("data/oumalik_environmental_data.csv")
 
     sp_raw = pd.read_csv(
-        "oumalik_species_data.csv", encoding="cp1252"
+        "data/oumalik_species_data.csv", encoding="cp1252"
     )
 
     # ── Parse species matrix (rows=species, cols=plots) ───────────────────────
@@ -57,10 +57,10 @@ def _(np, pd):
 
     # ── 8 categories placed around the clock (~99.7% of total cover) ──────────
     CATEGORIES = {
-        "Salix\n(Willows)": lambda n: n.startswith("Salix"),
-        "Carex\n(Sedges)":  lambda n: n.startswith("Carex"),
-        "Eriophorum\n(Cotton grass)": lambda n: n.startswith("Eriophorum"),
-        "Dryas": lambda n: n.startswith("Dryas"),
+        "Betula &\nShrubs": lambda n: any(n.startswith(g) for g in [
+            "Betula","Vaccinium","Ledum","Cassiope","Arctous","Rubus",
+            "Andromeda","Empetrum","Rhododendron","Pyrola","Orthilia",
+        ]),
         "Lichens": lambda n: any(n.startswith(g) for g in [
             "Cladonia","Peltigera","Alectoria","Ochrolechia","Flavocetraria",
             "Dactylina","Thamnolia","Stereocaulon","Cetraria","Bryocaulon",
@@ -68,6 +68,22 @@ def _(np, pd):
             "Physconia","Polyblastia","Rinodina","Solorina","Sphaerophorus",
             "Lecanora","Lobaria","Hypogymnia",
         ]),
+        "Dryas": lambda n: n.startswith("Dryas"),
+        "Carex\n(Sedges)":  lambda n: n.startswith("Carex"),
+        "Eriophorum\n(Cotton grass)": lambda n: n.startswith("Eriophorum"),
+        "Grasses\n& Forbs": lambda n: any(n.startswith(g) for g in [
+            "Poa","Arctagrostis","Puccinellia","Hierochloe","Hierochlo",
+            "Equisetum","Saxifraga","Pedicularis","Bistorta","Anemone",
+            "Astragalus","Draba","Stellaria","Luzula","Juncus","Micranthes",
+            "Artemisia","Arnica","Festuca","Arctophila","Calamagrostis",
+            "Kobresia","Trichophorum","Eleocharis","Hippuris","Triglochin",
+            "Petasites","Cardamine","Saussurea","Polemonium","Caltha",
+            "Chrysosplenium","Descurainia","Gentianella","Parnassia","Parrya",
+            "Tephroseris","Tofieldia","Valeriana","Lupinus","Chamerion",
+            "Wilhelmsia","Comarum","Ranunculus","Potentilla","Epilobium",
+            "Cerastium","Oxyria","Rumex","Silene","Minuartia",
+        ]),
+        "Salix\n(Willows)": lambda n: n.startswith("Salix"),
         "Mosses &\nLiverworts": lambda n: any(n.startswith(g) for g in [
             "Sphagnum","Bryum","Pohlia","Aulacomnium","Hypnum","Polytrichum",
             "Campylium","Dicranum","Encalypta","Brachythecium","Drepanocladus",
@@ -82,22 +98,6 @@ def _(np, pd):
             "Cephaloziella","Calypogeia","Aneura","Gymnocolea","Jungermannia",
             "Lejeunea","Lophoziopsis","Orthocaulis","Scapania","Tritomaria",
             "Sphenolobus","Marchantia","Unknown moss","Unknown liverworts",
-        ]),
-        "Betula &\nShrubs": lambda n: any(n.startswith(g) for g in [
-            "Betula","Vaccinium","Ledum","Cassiope","Arctous","Rubus",
-            "Andromeda","Empetrum","Rhododendron","Pyrola","Orthilia",
-        ]),
-        "Grasses\n& Forbs": lambda n: any(n.startswith(g) for g in [
-            "Poa","Arctagrostis","Puccinellia","Hierochloe","Hierochlo",
-            "Equisetum","Saxifraga","Pedicularis","Bistorta","Anemone",
-            "Astragalus","Draba","Stellaria","Luzula","Juncus","Micranthes",
-            "Artemisia","Arnica","Festuca","Arctophila","Calamagrostis",
-            "Kobresia","Trichophorum","Eleocharis","Hippuris","Triglochin",
-            "Petasites","Cardamine","Saussurea","Polemonium","Caltha",
-            "Chrysosplenium","Descurainia","Gentianella","Parnassia","Parrya",
-            "Tephroseris","Tofieldia","Valeriana","Lupinus","Chamerion",
-            "Wilhelmsia","Comarum","Ranunculus","Potentilla","Epilobium",
-            "Cerastium","Oxyria","Rumex","Silene","Minuartia",
         ]),
     }
 
@@ -246,7 +246,7 @@ def _(
         "#9b59b6","#1abc9c","#e67e22","#2c3e50",
     ]
 
-    CIRC_R, CX, CY = 285, 355, 365
+    CIRC_R, CX, CY = 250, 355, 365
 
     plot_df = pd.DataFrame({
         "plot":      df.index.tolist(),
