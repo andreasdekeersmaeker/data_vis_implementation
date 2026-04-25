@@ -3,4 +3,4 @@ __marimo__/
 .git
 .python-version
 uv.lock
-*.csv
+
