@@ -29,7 +29,7 @@ def _(mo):
     - **Colour** = cluster of similar initial conditions
     - **Coloured blob** = convex hull wrapping each cluster
 
-    **👆 Enter plot numbers to select / deselect it for comparison.**
+    **👆 Enter plot numbers to select them for comparison.**
     """)
     return
 
