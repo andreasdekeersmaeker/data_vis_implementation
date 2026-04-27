@@ -175,6 +175,13 @@ def _(mo):
         "Cover water+litter":    "_wet",
         "Vegetation height":     "_veg_ht",
         "Aspect x cos(slope)":   "_aspect_slope",
+        "NH4":                   "NH4",
+        "NO3":                   "NO3",
+        "Nitrogen (N)":          "N",
+        "Phosphorus (P)":        "P",
+        "Potassium (K)":         "K",
+        "Calcium (Ca)": "Ca", 
+        "Magnesium (Mg)": "Mg",
     }
 
     env_multiselect = mo.ui.multiselect(
@@ -682,7 +689,7 @@ def _(
 
         for vi, var in enumerate(var_order):
             sub = comp_df[comp_df["Variable"] == var]
-            y0  = 50 + vi * row_h
+            y0  = 10+14*len(sel_plots) + vi * row_h
             bg  = "#eef2ee" if vi % 2 == 0 else "#f7f8f2"
             svgl.append(f'<rect x="0" y="{y0-1}" width="{total_w}" height="{row_h}" fill="{bg}"/>')
 
